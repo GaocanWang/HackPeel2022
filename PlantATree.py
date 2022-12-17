@@ -1,29 +1,49 @@
 import pygame
-from pygame.locals import (
-    K_SPACE
-)
 
-pygame.init
+pygame.init()
 
-screen_width = 800
-screen_height = 600
+screen = pygame.display.set_mode((300, 600))
 
-screen = pygame.display.set_mode((screen_width, screen_height))
+screen.fill((135, 206, 235))
+
+surf = pygame.Surface((300, 50))
+
+surf.fill((181, 150, 0))
+
+rect = surf.get_rect()
+
+screen.blit(surf, (0, 550))
+
+pygame.display.flip()
+
+pygame.draw.rect(screen, (165,42,42), [140, 450, 30, 100])
+pygame.draw.polygon(screen, (0,255,0), [[250, 450], [155, 305], [60, 450]])
+pygame.draw.polygon(screen, (0,255,0), [[240, 425], [155, 280], [70, 425]])
+
+height = 0
+width = 0
 
 running = True
 
 while running:
+    pygame.display.update()
+
     for event in pygame.event.get():
 
-        if event.type == quit:
+        if event.type == pygame.QUIT:
             running = False
-            
-screen.fill((255, 255, 255))
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                height = height + 24
+                width = width + 4
 
-surf = pygame.Surface((50, 50))
+                if height == 240:
+                    height = 0
+                    width = 0
+                    screen.fill((135, 206, 235))
+                    screen.blit(surf, (0, 550))
+                    pygame.display.flip()
+                    pygame.draw.rect(screen, (165,42,42), [140, 450, 30, 100])
 
-surf.fill((0, 0, 0))
-rect = surf.get_rect()
-
-screen.blit(surf, (screen_width/2, screen_height/2))
-pygame.display.flip()
+                pygame.draw.polygon(screen, (0,255,0), [[250 - width, 450 - height], [155, 305 - height], [60 + width, 450 - height]])
+                pygame.draw.polygon(screen, (0,255,0), [[240 - width, 425 - height], [155, 280 - height], [70 + width, 425 - height]])
