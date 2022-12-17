@@ -13,6 +13,9 @@ tree_number = 1
 
 pygame.init()
 
+pygame.display.set_caption('Greener Life')
+pygame.display.set_icon(pygame.image.load('icon.jpg'))
+
 screen = pygame.display.set_mode((300, 600))
 screen.fill((135, 206, 235))
 
