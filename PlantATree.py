@@ -4,10 +4,12 @@ import time
 
 height = 0
 width = 0
+bar_length = 0
 questions = ["269k tons of plastic on ocean surface", "25% of plastic is single use", "4.1k endangered species in the world"]
 answers = [pygame.K_t, pygame.K_f, pygame.K_t]
 question = 0
 answer = pygame.K_t
+tree_number = 1
 
 pygame.init()
 
@@ -24,9 +26,14 @@ screen.fill((255, 255, 255), (0, 0, 300, 25))
 font = pygame.font.SysFont("monospace", 14)
 text = font.render("Are trees good (t = true, f = false)", 1, (0,0,0))
 screen.blit(text, (2, 5))
+font = pygame.font.SysFont("monospace", 20)
+text = font.render("Tree Number: " + str(tree_number), 1, (0,0,0))
+screen.blit(text, (75, 565))
 
 pygame.display.flip()
 
+pygame.draw.rect(screen, (255,255,255), [275, 25, 300, 525])
+pygame.draw.rect(screen, (255, 255, 0), [277, 523, 21, 25])
 pygame.draw.rect(screen, (165,42,42), [140, 450, 30, 100])
 pygame.draw.polygon(screen, (0,255,0), [[250, 450], [155, 305], [60, 450]])
 pygame.draw.polygon(screen, (0,255,0), [[240, 425], [155, 280], [70, 425]])
@@ -44,6 +51,7 @@ while running:
             if event.key == answer:
                 height = height + 24
                 width = width + 4
+                bar_length = bar_length + 50
                 randint = random.randint(0, 2)
                 question = questions[randint]
                 answer = answers[randint]
@@ -52,9 +60,13 @@ while running:
                 else:
                     wrong_answer = pygame.K_t
 
+                pygame.draw.rect(screen, (255, 255, 0), [277, 523 - bar_length, 21, 25])
+
                 if height == 240:
                     height = 0
                     width = 0
+                    bar_length = 0
+                    tree_number = tree_number + 1
 
                     screen.fill((255, 255, 255), (0, 0, 300, 25))
                     text = font.render("Tree grown!", 1, (0,0,0))
@@ -65,12 +77,18 @@ while running:
 
                     screen.fill((135, 206, 235))
                     screen.blit(surf, (0, 550))
+                    font = pygame.font.SysFont("monospace", 20)
+                    text = font.render("Tree Number: " + str(tree_number), 1, (0,0,0))
+                    screen.blit(text, (75, 565))
 
                     pygame.display.flip()
 
+                    pygame.draw.rect(screen, (255,255,255), [275, 25, 300, 525])
+                    pygame.draw.rect(screen, (255, 255, 0), [277, 523, 21, 25])
                     pygame.draw.rect(screen, (165,42,42), [140, 450, 30, 100])
 
                 screen.fill((255, 255, 255), (0, 0, 300, 25))
+                font = pygame.font.SysFont("monospace", 14)
                 text = font.render(question, 1, (0,0,0))
                 screen.blit(text, (2, 5))
 
@@ -80,6 +98,7 @@ while running:
                 pygame.draw.polygon(screen, (0,255,0), [[240 - width, 425 - height], [155, 280 - height], [70 + width, 425 - height]])
             elif event.key == wrong_answer:
                 screen.fill((255, 255, 255), (0, 0, 300, 25))
+                font = pygame.font.SysFont("monospace", 14)
                 text = font.render("Incorrect", 1, (0,0,0))
                 screen.blit(text, (0, 5))
 
@@ -95,6 +114,7 @@ while running:
                     wrong_answer = pygame.K_t
 
                 screen.fill((255, 255, 255), (0, 0, 300, 25))
+                font = pygame.font.SysFont("monospace", 14)
                 text = font.render(question, 1, (0,0,0))
                 screen.blit(text, (0, 5))
 
