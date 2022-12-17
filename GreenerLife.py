@@ -5,11 +5,14 @@ import time
 height = 0
 width = 0
 bar_length = 0
-questions = ["269k tons of plastic on ocean surface", "25% of plastic is single use", "4.1k endangered species in the world"]
-answers = [pygame.K_t, pygame.K_f, pygame.K_t]
+questions = ["269k tons of plastic on ocean surface", "25% of plastic is single use", "4.1k endangered species in the world", "Fast fashion = 15% of global emissions", "Methane is more potent than CO2", "Paris agreement signed in 2014", "Reusable bags should be used >35x", "One bus can replace 30-40 cars", "Coal produces 10% of electricity", "Veggies produce lots of emissions", "Glass is infinitely recyclable"]
+answers = [pygame.K_t, pygame.K_f, pygame.K_t, pygame.K_f, pygame.K_t, pygame.K_f, pygame.K_t, pygame.K_t, pygame.K_f, pygame.K_f, pygame.K_t]
+solutions = ["it's true", "it's false, it's 50%", "it's true", "it's false, it's 10%", "it's true", "it's false, it's 2015", "it's true", "it's true", "it's false, it's 40", "it's false, meat produce way more", "it's true"]
 question = 0
 answer = pygame.K_t
+wrong_answer = pygame.K_f
 tree_number = 1
+randint = 0
 
 pygame.init()
 
@@ -55,7 +58,7 @@ while running:
                 height = height + 24
                 width = width + 4
                 bar_length = bar_length + 50
-                randint = random.randint(0, 2)
+                randint = random.randint(0, 10)
                 question = questions[randint]
                 answer = answers[randint]
                 if answer == pygame.K_t:
@@ -102,13 +105,13 @@ while running:
             elif event.key == wrong_answer:
                 screen.fill((255, 255, 255), (0, 0, 300, 25))
                 font = pygame.font.SysFont("monospace", 14)
-                text = font.render("Incorrect", 1, (0,0,0))
+                text = font.render(solutions[randint], 1, (0,0,0))
                 screen.blit(text, (0, 5))
 
                 pygame.display.flip()
                 time.sleep(1)
 
-                randint = random.randint(0, 2)
+                randint = random.randint(0, 10)
                 question = questions[randint]
                 answer = answers[randint]
                 if answer == pygame.K_t:
